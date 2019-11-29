@@ -1,0 +1,1226 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      redis笔记 | 林贤钦的博客
+    
+  </title>
+  <meta name="author" content="林贤钦">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="normal" data-normal-src="/img/1.jpg" data-random-max="110" data-random-src="https://sariay.github.io/Random-img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/logo.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" target="_blank" rel="noopener" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" target="_blank" id="time_is_link" rel="nofollow noopener" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			当前文章&nbsp;:&nbsp;《redis笔记》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" target="_blank" rel="noopener" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2019/07/10/redis%E7%AC%94%E8%AE%B0/" itemprop="url">
+		redis笔记
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	发布于
+
+	<a href="/2019/07/10/redis%E7%AC%94%E8%AE%B0/" itemprop="url">
+		<time datetime="2019-07-10T07:54:22.000Z" itemprop="datePublished">
+	  		2019-07-10
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	更新于
+
+	<a href="/2019/07/10/redis%E7%AC%94%E8%AE%B0/" itemprop="url">
+		<time datetime="2019-07-10T07:54:22.000Z" itemprop="dateUpdated">
+	  		2019-07-15
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/java/" class=" ">
+			java
+		</a>
+	
+		<a href="/tags/back-end/" class=" ">
+			back-end
+		</a>
+	
+		
+		</span>
+		
+		
+
+	
+    <span class="leancloud_visitors" id="/2019/07/10/redis%E7%AC%94%E8%AE%B0/_visitors" data-url="/2019/07/10/redis%E7%AC%94%E8%AE%B0/" data-title="redis笔记">
+       	<i class="fa fa-eye"></i>
+       	热度
+        <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2019/07/10/redis%E7%AC%94%E8%AE%B0/_likes" data-url="/2019/07/10/redis%E7%AC%94%E8%AE%B0/" data-title="redis笔记" rel="unlike">
+        <i class="fa fa-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="概念：-redis是一款高性能的NOSQL系列的非关系型数据库"><a href="#概念：-redis是一款高性能的NOSQL系列的非关系型数据库" class="headerlink" title="概念： redis是一款高性能的NOSQL系列的非关系型数据库"></a>概念： redis是一款高性能的NOSQL系列的非关系型数据库</h2><h3 id="什么是NOSQL"><a href="#什么是NOSQL" class="headerlink" title="什么是NOSQL"></a>什么是NOSQL</h3><pre><code>NoSQL(NoSQL = Not Only SQL)，意即“不仅仅是SQL”，是一项全新的数据库理念，泛指非关系型的数据库。
+随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是超大规模和高并发的SNS类型的web2.0纯动态网站已经显得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。</code></pre><h3 id="NOSQL和关系型数据库比较"><a href="#NOSQL和关系型数据库比较" class="headerlink" title="NOSQL和关系型数据库比较"></a>NOSQL和关系型数据库比较</h3><pre><code>优点：
+    1）成本：nosql数据库简单易部署，基本都是开源软件，不需要像使用oracle那样花费大量成本购买使用，相比关系型数据库价格便宜。
+    2）查询速度：nosql数据库将数据存储于缓存之中，关系型数据库将数据存储在硬盘中，自然查询速度远不及nosql数据库。
+    3）存储数据的格式：nosql的存储格式是key,value形式、文档形式、图片形式等等，所以可以存储基础类型以及对象或者是集合等各种格式，而数据库则只支持基础类型。
+    4）扩展性：关系型数据库有类似join这样的多表查询机制的限制导致扩展很艰难。
+
+缺点：
+    1）维护的工具和资料有限，因为nosql是属于新的技术，不能和关系型数据库10几年的技术同日而语。
+    2）不提供对sql的支持，如果不支持sql这样的工业标准，将产生一定用户的学习和使用成本。
+    3）不提供关系型数据库对事务的处理。</code></pre><h3 id="非关系型数据库的优势："><a href="#非关系型数据库的优势：" class="headerlink" title="非关系型数据库的优势："></a>非关系型数据库的优势：</h3><pre><code>1）性能NOSQL是基于键值对的，可以想象成表中的主键和值的对应关系，而且不需要经过SQL层的解析，所以性能非常高。
+2）可扩展性同样也是因为基于键值对，数据之间没有耦合性，所以非常容易水平扩展。</code></pre><h3 id="关系型数据库的优势："><a href="#关系型数据库的优势：" class="headerlink" title="关系型数据库的优势："></a>关系型数据库的优势：</h3><pre><code>1）复杂查询可以用SQL语句方便的在一个表以及多个表之间做非常复杂的数据查询。
+2）事务支持使得对于安全性能很高的数据访问要求得以实现。对于这两类数据库，对方的优势就是自己的弱势，反之亦然。</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><pre><code>关系型数据库与NoSQL数据库并非对立而是互补的关系，即通常情况下使用关系型数据库，在适合使用NoSQL的时候使用NoSQL数据库，
+让NoSQL数据库对关系型数据库的不足进行弥补。
+一般会将数据存储在关系型数据库中，在nosql数据库中备份存储关系型数据库的数据</code></pre><h2 id="主流的NOSQL产品"><a href="#主流的NOSQL产品" class="headerlink" title="主流的NOSQL产品"></a>主流的NOSQL产品</h2><h3 id="键值-Key-Value-存储数据库"><a href="#键值-Key-Value-存储数据库" class="headerlink" title="键值(Key-Value)存储数据库"></a>键值(Key-Value)存储数据库</h3><pre><code>相关产品： Tokyo Cabinet/Tyrant、Redis、Voldemort、Berkeley DB
+典型应用： 内容缓存，主要用于处理大量数据的高访问负载。 
+数据模型： 一系列键值对
+优势： 快速查询
+劣势： 存储的数据缺少结构化</code></pre><h3 id="列存储数据库"><a href="#列存储数据库" class="headerlink" title="列存储数据库"></a>列存储数据库</h3><pre><code>相关产品：Cassandra, HBase, Riak
+典型应用：分布式的文件系统
+数据模型：以列簇式存储，将同一列数据存在一起
+优势：查找速度快，可扩展性强，更容易进行分布式扩展
+劣势：功能相对局限</code></pre><h3 id="文档型数据库"><a href="#文档型数据库" class="headerlink" title="文档型数据库"></a>文档型数据库</h3><pre><code>相关产品：CouchDB、MongoDB
+典型应用：Web应用（与Key-Value类似，Value是结构化的）
+数据模型： 一系列键值对
+优势：数据结构要求不严格
+劣势： 查询性能不高，而且缺乏统一的查询语法</code></pre><h3 id="图形-Graph-数据库"><a href="#图形-Graph-数据库" class="headerlink" title="图形(Graph)数据库"></a>图形(Graph)数据库</h3><pre><code>相关数据库：Neo4J、InfoGrid、Infinite Graph
+典型应用：社交网络
+数据模型：图结构
+优势：利用图结构相关算法。
+劣势：需要对整个图做计算才能得出结果，不容易做分布式的集群方案。</code></pre><h2 id="什么是Redis"><a href="#什么是Redis" class="headerlink" title="什么是Redis"></a>什么是Redis</h2><pre><code>Redis是用C语言开发的一个开源的高性能键值对（key-value）数据库，官方提供测试数据，50个并发执行100000个请求,读的速度是110000次/s,写的速度是81000次/s ，且Redis通过提供多种键值数据类型来适应不同场景下的存储需求，目前为止Redis支持的键值数据类型如下：
+    1) 字符串类型 string
+    2) 哈希类型 hash
+    3) 列表类型 list
+    4) 集合类型 set
+    5) 有序集合类型 sortedset</code></pre><h3 id="redis的应用场景"><a href="#redis的应用场景" class="headerlink" title="redis的应用场景"></a>redis的应用场景</h3><pre><code>•    缓存（数据查询、短连接、新闻内容、商品内容等等）
+•    聊天室的在线好友列表
+•    任务队列。（秒杀、抢购、12306等等）
+•    应用排行榜
+•    网站访问统计
+•    数据过期处理（可以精确到毫秒
+•    分布式集群架构中的session分离</code></pre><h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><pre><code>1. 官网：https://redis.io
+2. 中文网：http://www.redis.net.cn/
+3. 解压直接可以使用：
+    * redis.windows.conf：配置文件
+    * redis-cli.exe：redis的客户端
+    * redis-server.exe：redis服务器端</code></pre><h3 id="命令操作"><a href="#命令操作" class="headerlink" title="命令操作"></a>命令操作</h3><ol>
+<li><p>redis的数据结构：</p>
+<pre><code>* redis存储的是：key,value格式的数据，其中key都是字符串，value有5种不同的数据结构
+    * value的数据结构：
+        1) 字符串类型 string
+        2) 哈希类型 hash ： map格式  
+        3) 列表类型 list ： linkedlist格式。支持重复元素
+        4) 集合类型 set  ： 不允许重复元素
+        5) 有序集合类型 sortedset：不允许重复元素，且元素有顺序</code></pre></li>
+<li><p>字符串类型 string</p>
+<pre><code>1. 存储： set key value
+    127.0.0.1:6379&gt; set username zhangsan
+    OK
+2. 获取： get key
+    127.0.0.1:6379&gt; get username
+    &quot;zhangsan&quot;
+3. 删除： del key
+    127.0.0.1:6379&gt; del age
+    (integer) 1</code></pre></li>
+<li><p>哈希类型 hash</p>
+<pre><code>1. 存储： hset key field value
+    127.0.0.1:6379&gt; hset myhash username lisi
+    (integer) 1
+    127.0.0.1:6379&gt; hset myhash password 123
+    (integer) 1
+2. 获取： 
+    * hget key field: 获取指定的field对应的值
+        127.0.0.1:6379&gt; hget myhash username
+        &quot;lisi&quot;
+    * hgetall key：获取所有的field和value
+        127.0.0.1:6379&gt; hgetall myhash
+        1) &quot;username&quot;
+        2) &quot;lisi&quot;
+        3) &quot;password&quot;
+        4) &quot;123&quot;
+
+3. 删除： hdel key field
+    127.0.0.1:6379&gt; hdel myhash username
+    (integer) 1</code></pre></li>
+<li><p>列表类型 list:可以添加一个元素到列表的头部（左边）或者尾部（右边）</p>
+<pre><code>1. 添加：
+    1. lpush key value: 将元素加入列表左表
+
+    2. rpush key value：将元素加入列表右边
+
+        127.0.0.1:6379&gt; lpush myList a
+        (integer) 1
+        127.0.0.1:6379&gt; lpush myList b
+        (integer) 2
+        127.0.0.1:6379&gt; rpush myList c
+        (integer) 3
+2. 获取：
+    * lrange key start end ：范围获取
+        127.0.0.1:6379&gt; lrange myList 0 -1
+        1) &quot;b&quot;
+        2) &quot;a&quot;
+        3) &quot;c&quot;
+3. 删除：
+    * lpop key： 删除列表最左边的元素，并将元素返回
+    * rpop key： 删除列表最右边的元素，并将元素返回</code></pre></li>
+</ol>
+<ol start="5">
+<li><p>集合类型 set ： 不允许重复元素</p>
+<pre><code>1. 存储：sadd key value
+    127.0.0.1:6379&gt; sadd myset a
+    (integer) 1
+    127.0.0.1:6379&gt; sadd myset a
+    (integer) 0
+2. 获取：smembers key:获取set集合中所有元素
+    127.0.0.1:6379&gt; smembers myset
+    1) &quot;a&quot;
+3. 删除：srem key value:删除set集合中的某个元素    
+    127.0.0.1:6379&gt; srem myset a
+    (integer) 1</code></pre></li>
+<li><p>有序集合类型 sortedset：不允许重复元素，且元素有顺序.每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。</p>
+<pre><code>1. 存储：zadd key score value
+    127.0.0.1:6379&gt; zadd mysort 60 zhangsan
+    (integer) 1
+    127.0.0.1:6379&gt; zadd mysort 50 lisi
+    (integer) 1
+    127.0.0.1:6379&gt; zadd mysort 80 wangwu
+    (integer) 1
+2. 获取：zrange key start end [withscores]
+    127.0.0.1:6379&gt; zrange mysort 0 -1
+    1) &quot;lisi&quot;
+    2) &quot;zhangsan&quot;
+    3) &quot;wangwu&quot;
+
+    127.0.0.1:6379&gt; zrange mysort 0 -1 withscores
+    1) &quot;zhangsan&quot;
+    2) &quot;60&quot;
+    3) &quot;wangwu&quot;
+    4) &quot;80&quot;
+    5) &quot;lisi&quot;
+    6) &quot;500&quot;
+3. 删除：zrem key value
+    127.0.0.1:6379&gt; zrem mysort lisi
+    (integer) 1</code></pre></li>
+<li><p>通用命令</p>
+<pre><code>1. keys * : 查询所有的键
+2. type key ： 获取键对应的value的类型
+3. del key：删除指定的key value</code></pre></li>
+</ol>
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><h3 id="redis是一个内存数据库，当redis服务器重启，获取电脑重启，数据会丢失，我们可以将redis内存中的数据持久化保存到硬盘的文件中。"><a href="#redis是一个内存数据库，当redis服务器重启，获取电脑重启，数据会丢失，我们可以将redis内存中的数据持久化保存到硬盘的文件中。" class="headerlink" title="redis是一个内存数据库，当redis服务器重启，获取电脑重启，数据会丢失，我们可以将redis内存中的数据持久化保存到硬盘的文件中。"></a>redis是一个内存数据库，当redis服务器重启，获取电脑重启，数据会丢失，我们可以将redis内存中的数据持久化保存到硬盘的文件中。</h3><h3 id="redis持久化机制："><a href="#redis持久化机制：" class="headerlink" title="redis持久化机制："></a>redis持久化机制：</h3><ol>
+<li><p>RDB：默认方式，不需要进行配置，默认就使用这种机制</p>
+<pre><code>* 在一定的间隔时间中，检测key的变化情况，然后持久化数据
+1. 编辑redis.windwos.conf文件
+    after 900 sec (15 min) if at least 1 key changed
+    save 900 1
+    after 300 sec (5 min) if at least 10 keys changed
+    save 300 10
+    after 60 sec if at least 10000 keys changed
+    save 60 10000
+
+2. 重新启动redis服务器，并指定配置文件名称
+    D:\JavaWeb2018\day23_redis\资料\redis\windows-64\redis-2.8.9&gt;redis-server.exe redis.windows.conf    </code></pre></li>
+<li><p>AOF：日志记录的方式，可以记录每一条命令的操作。可以每一次命令操作后，持久化数据</p>
+<pre><code>1. 编辑redis.windwos.conf文件
+    appendonly no（关闭aof） --&gt; appendonly yes （开启aof）
+    appendfsync always ： 每一次操作都进行持久化
+    appendfsync everysec ： 每隔一秒进行一次持久化
+    appendfsync no     ： 不进行持久化</code></pre></li>
+</ol>
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">相关文章</div>
+				<div>评论</div>
+				<div>分享</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);" target="_blank" rel="noopener">返回顶部</a>
+		
+			<a href="/2019/07/10/jedis%E5%B7%A5%E5%85%B7/" title="jedis工具" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2019/07/10/%E5%86%99%E5%9C%A82019-7-10%E8%BF%99%E4%B8%AA%E6%9A%91%E5%81%87/" title="写在2019.7.10这个暑假" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/10/07/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%97%E4%B8%B2/" title="无重复字符的最长字串">
+								无重复字符的最长字串			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 7日, 2019				
+							</p>
+							<p class="relate-post-content">
+								算法–无重复字符的最长字串给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+示例1：输入： &quot;abcabcbb&quot;
+输出：3 
+原因： 因为无重复字符的最长子串是 &quot;abc&quot;，所以...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/10/07/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%97%E4%B8%B2/" title="无重复字符的最长字串">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="无重复字符的最长字串"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/09/19/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" title="两数相加">
+								两数相加			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 19日, 2019				
+							</p>
+							<p class="relate-post-content">
+								算法–两数相加给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+您可以假设除了数...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/09/19/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" title="两数相加">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="两数相加"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/09/09/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" title="两数之和">
+								两数之和			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 9日, 2019				
+							</p>
+							<p class="relate-post-content">
+								算法–两数之和给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
+示例：给定 n...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/09/09/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" title="两数之和">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="两数之和"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/28/springMVC%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E7%BB%91%E5%AE%9A/" title="springMVC请求参数的绑定">
+								springMVC请求参数的绑定			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 28日, 2019				
+							</p>
+							<p class="relate-post-content">
+								1 绑定的机制我们都知道，表单中请求参数都是基于 key=value 的。SpringMVC 绑定请求参数的过程是通过把表单提交请求参数，作为控制器中方法参数进行绑定的。
+1&lt;a href="account/findAccoun...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/28/springMVC%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E7%BB%91%E5%AE%9A/" title="springMVC请求参数的绑定">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="springMVC请求参数的绑定"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/28/springMVC%E7%9A%84%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/" title="springMVC的常用注解">
+								springMVC的常用注解			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 28日, 2019				
+							</p>
+							<p class="relate-post-content">
+								RequestMapping注解1.RequestMapping使用说明源码：1@Target(&#123;ElementType.METHOD, ElementType.TYPE&#125;)2@Retention(Retentio...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/28/springMVC%E7%9A%84%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/" title="springMVC的常用注解">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="springMVC的常用注解"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/28/SpringMVC%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="SpringMVC的基本概念">
+								SpringMVC的基本概念			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 28日, 2019				
+							</p>
+							<p class="relate-post-content">
+								关于三层架构和 MVC三层架构我们的开发架构一般都是基于两种形式，一种是 C/S 架构，也就是客户端/服务器，另一种是 B/S 架构，也就是浏览器服务器。在JavaEE 开发中，几乎全都是基于 B/S 架构的开发。那么在 B/S 架构...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/28/SpringMVC%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="SpringMVC的基本概念">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SpringMVC的基本概念"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/" title="spring基于xml的aop细节">
+								spring基于xml的aop细节			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 20日, 2019				
+							</p>
+							<p class="relate-post-content">
+								AOP 的相关概念什么是AOPAOP的作用及优势作用：
+    在程序运行期间，不修改源码对已有方法进行增强。
+优势：
+    减少重复代码
+    提高开发效率
+    维护方便AOP 的实现方式使用动态代理技术Spring 中 A...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/" title="spring基于xml的aop细节">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="spring基于xml的aop细节"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/18/mybatis%E5%9F%BA%E4%BA%8Exml%E7%9A%84%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" title="mybatis基于xml的多表查询">
+								mybatis基于xml的多表查询			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								Mybatis 多表查询之一对一和一对多用户为 User 表，账户为Account表。一个用户（User）可以有多个账户（Account）。具体关系如下：
+需求
+    查询所有账户信息，关联查询下单用户信息。
+注意：
+    因为一...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/18/mybatis%E5%9F%BA%E4%BA%8Exml%E7%9A%84%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" title="mybatis基于xml的多表查询">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="mybatis基于xml的多表查询"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/18/mybatis%E7%9A%84SqlMapConfig%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="SqlMapConfig.xml配置文件">
+								SqlMapConfig.xml配置文件			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								SqlMapConfig.xml 中配置的内容和顺序-properties（属性）
+    --property
+-settings（全局配置参数）
+    --setting
+-typeAliases（类型别名）
+    --typ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/18/mybatis%E7%9A%84SqlMapConfig%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="SqlMapConfig.xml配置文件">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SqlMapConfig.xml配置文件"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/17/mybatis%E5%9F%BA%E4%BA%8E%E4%BB%A3%E7%90%86Dao%E5%AE%9E%E7%8E%B0CRUD%E6%93%8D%E4%BD%9C/" title="mybatis基于代理Dao实现CRUD操作">
+								mybatis基于代理Dao实现CRUD操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 17日, 2019				
+							</p>
+							<p class="relate-post-content">
+								使用要求：    1、持久层接口和持久层接口的映射配置必须在相同的包下    2、持久层映射配置中 mapper 标签的 namespace 属性取值必须是持久层接口的全限定类名    3、SQL 语句的配置标签select,inse...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/17/mybatis%E5%9F%BA%E4%BA%8E%E4%BB%A3%E7%90%86Dao%E5%AE%9E%E7%8E%B0CRUD%E6%93%8D%E4%BD%9C/" title="mybatis基于代理Dao实现CRUD操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="mybatis基于代理Dao实现CRUD操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+
+	<script>
+		var appid = 'dXz--',
+            appkey = 'wzG--';	  
+        AnnieLeancloud(appid, appkey);         
+	</script>
+    
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2019, content by 林贤钦. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran(' target="_blank" rel="noopener"s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran(' target="_blank" rel="noopener"t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="想搜索啥呢？..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var appid = 'dXz--',
+            appkey = 'wzG--',
+            limitCount = 10;
+        if( $('#topN').length ){
+            AV.initialize(appid, appkey);
+            var Counter = AV.Object.extend("Counter");  
+            topNPost(Counter, limitCount);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/plugin/search/search.js"></script>
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;" target="_blank" rel="noopener"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

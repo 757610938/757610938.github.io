@@ -1,0 +1,1118 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      spring基于xml的ioc细节 | 林贤钦的博客
+    
+  </title>
+  <meta name="author" content="林贤钦">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="normal" data-normal-src="/img/1.jpg" data-random-max="110" data-random-src="https://sariay.github.io/Random-img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/logo.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" target="_blank" rel="noopener" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" target="_blank" id="time_is_link" rel="nofollow noopener" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			当前文章&nbsp;:&nbsp;《spring基于xml的ioc细节》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" target="_blank" rel="noopener" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2019/07/15/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84ioc%E7%BB%86%E8%8A%82/" itemprop="url">
+		spring基于xml的ioc细节
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	发布于
+
+	<a href="/2019/07/15/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84ioc%E7%BB%86%E8%8A%82/" itemprop="url">
+		<time datetime="2019-07-15T09:34:08.000Z" itemprop="datePublished">
+	  		2019-07-15
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	更新于
+
+	<a href="/2019/07/15/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84ioc%E7%BB%86%E8%8A%82/" itemprop="url">
+		<time datetime="2019-07-15T09:34:08.000Z" itemprop="dateUpdated">
+	  		2019-07-16
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/spring/" class=" ">
+			spring
+		</a>
+	
+		<a href="/tags/java/" class=" ">
+			java
+		</a>
+	
+		<a href="/tags/back-end/" class=" ">
+			back-end
+		</a>
+	
+		
+		</span>
+		
+		
+
+	
+    <span class="leancloud_visitors" id="/2019/07/15/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84ioc%E7%BB%86%E8%8A%82/_visitors" data-url="/2019/07/15/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84ioc%E7%BB%86%E8%8A%82/" data-title="spring基于xml的ioc细节">
+       	<i class="fa fa-eye"></i>
+       	热度
+        <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2019/07/15/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84ioc%E7%BB%86%E8%8A%82/_likes" data-url="/2019/07/15/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84ioc%E7%BB%86%E8%8A%82/" data-title="spring基于xml的ioc细节" rel="unlike">
+        <i class="fa fa-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h1 id="Spring-基于-XML-的-IOC-细节"><a href="#Spring-基于-XML-的-IOC-细节" class="headerlink" title="Spring 基于 XML 的 IOC 细节"></a>Spring 基于 XML 的 IOC 细节</h1><h2 id="spring-中工厂的类结构图"><a href="#spring-中工厂的类结构图" class="headerlink" title="spring 中工厂的类结构图"></a>spring 中工厂的类结构图</h2><p><img src="/images/spring%E4%B8%AD%E5%B7%A5%E5%8E%82%E7%9A%84%E7%B1%BB%E7%BB%93%E6%9E%84%E5%9B%BE1.jpg" alt="spring中工厂的类结构图2">  </p>
+<hr>
+<p><img src="/images/spring%E4%B8%AD%E5%B7%A5%E5%8E%82%E7%9A%84%E7%B1%BB%E7%BB%93%E6%9E%84%E5%9B%BE2.jpg" alt="spring中工厂的类结构图2"></p>
+<h2 id="BeanFactory-和-ApplicationContext-的区别"><a href="#BeanFactory-和-ApplicationContext-的区别" class="headerlink" title="BeanFactory 和 ApplicationContext 的区别"></a>BeanFactory 和 ApplicationContext 的区别</h2><pre><code>BeanFactory 才是 Spring 容器中的顶层接口。ApplicationContext 是它的子接口。BeanFactory 和 ApplicationContext 的区别：创建对象的时间点不一样。ApplicationContext：只要一读取配置文件，默认情况下就会创建对象。BeanFactory：什么使用什么时候创建对象。</code></pre><h2 id="ApplicationContext-接口的实现类"><a href="#ApplicationContext-接口的实现类" class="headerlink" title="ApplicationContext 接口的实现类"></a>ApplicationContext 接口的实现类</h2><pre><code>ClassPathXmlApplicationContext：  
+它是从类的根路径下加载配置文件     推荐使用这种  </code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ClassPathXmlApplicationContext ac= <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"bean.xml"</span>)</span></pre></td></tr></table></figure>
+<pre><code>FileSystemXmlApplicationContext：  
+它是从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置。</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ApplicationContext ac= <span class="keyword">new</span> FileSystemXmlApplicationContext(<span class="string">"H:\\ssm_spring\\src\\main\\resources\\bean.xml"</span>);</span></pre></td></tr></table></figure>
+<pre><code>AnnotationConfigApplicationContext:  
+当我们使用注解配置容器对象时，需要使用此类来创建 spring 容器。它用来读取注解。</code></pre><h2 id="IOC-中-bean-标签和管理对象细节"><a href="#IOC-中-bean-标签和管理对象细节" class="headerlink" title="IOC 中 bean 标签和管理对象细节"></a>IOC 中 bean 标签和管理对象细节</h2><h3 id="1-bean-标签"><a href="#1-bean-标签" class="headerlink" title="1. bean 标签"></a>1. bean 标签</h3><pre><code>作用：
+用于配置对象让 spring 来创建的。默认情况下它调用的是类中的无参构造函数。如果没有无参构造函数则不能创建成功。
+属性：
+id：给对象在容器中提供一个唯一标识。用于获取对象。
+class：指定类的全限定类名。用于反射创建对象。默认情况下调用无参构造函数。
+scope：指定对象的作用范围。
+singleton :默认值，单例的.
+prototype :多例的.
+request :WEB 项目中,Spring 创建一个 Bean 的对象,将对象存入到 request 域中.
+session :WEB 项目中,Spring 创建一个 Bean 的对象,将对象存入到 session 域中.
+global session :WEB 项目中,应用在 Portlet 环境.如果没有 Portlet 环境那么
+globalSession 相当于 session.
+init-method：指定类中的初始化方法名称。
+destroy-method：指定类中销毁方法名称。</code></pre><h3 id="2-bean-的作用范围和生命周期"><a href="#2-bean-的作用范围和生命周期" class="headerlink" title="2. bean 的作用范围和生命周期"></a>2. bean 的作用范围和生命周期</h3><h4 id="单例对象：scope-”singleton”一个应用只有一个对象的实例。它的作用范围就是整个引用。"><a href="#单例对象：scope-”singleton”一个应用只有一个对象的实例。它的作用范围就是整个引用。" class="headerlink" title="单例对象：scope=”singleton”一个应用只有一个对象的实例。它的作用范围就是整个引用。"></a>单例对象：scope=”singleton”一个应用只有一个对象的实例。它的作用范围就是整个引用。</h4><pre><code>生命周期：
+对象出生：当应用加载，创建容器时，对象就被创建了。
+对象活着：只要容器在，对象一直活着。
+对象死亡：当应用卸载，销毁容器时，对象就被销毁了。</code></pre><h4 id="多例对象：scope-”prototype”每次访问对象时，都会重新创建对象实例。"><a href="#多例对象：scope-”prototype”每次访问对象时，都会重新创建对象实例。" class="headerlink" title="多例对象：scope=”prototype”每次访问对象时，都会重新创建对象实例。"></a>多例对象：scope=”prototype”每次访问对象时，都会重新创建对象实例。</h4><pre><code>生命周期：
+对象出生：当使用对象时，创建新的对象实例。
+对象活着：只要对象在使用中，就一直活着。
+对象死亡：当对象长时间不用时，被 java 的垃圾回收器回收了。</code></pre><h3 id="3-实例化-Bean-的三种方式"><a href="#3-实例化-Bean-的三种方式" class="headerlink" title="3.实例化 Bean 的三种方式"></a>3.实例化 Bean 的三种方式</h3><p>第一种方式：使用默认无参构造函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;!--在默认情况下：</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">它会根据默认无参构造函数来创建类对象。如果 bean 中没有默认无参构造函数，将会创建失败。</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">--&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"accountService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.linxianqin.service.impl.AccountServiceImpl"</span>/&gt;</span></pre></td></tr></table></figure>
+<p>第二种方式：spring 管理静态工厂-使用静态工厂的方法创建对象</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">* 模拟一个静态工厂，创建业务层实现类</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">*/</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticFactory</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IAccountService <span class="title">createAccountService</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> AccountServiceImpl();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&lt;!-- 此种方式是:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">使用 StaticFactory 类中的静态方法 createAccountService 创建对象，并存入 spring 容器</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">id 属性：指定 bean 的 id，用于从容器中获取</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 属性：指定静态工厂的全限定类名</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="title">factory</span>-<span class="title">method</span> 属性：指定生产对象的静态方法</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="class">--&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="class"> &lt;<span class="title">bean</span> <span class="title">id</span></span>=<span class="string">"accountService"</span>  <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.linxianqin.factory.StaticFactory"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"> factory-method="createAccountService"&gt;&lt;/bean&gt;</span></pre></td></tr></table></figure>
+<p>第三种方式：spring 管理实例工厂-使用实例工厂的方法创建对象\</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">* 模拟一个实例工厂，创建业务层实现类</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">* 此工厂创建对象，必须现有工厂实例对象，再调用方法</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">*/</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InstanceFactory</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> IAccountService <span class="title">createAccountService</span><span class="params">()</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> AccountServiceImpl();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	&#125; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&lt;!-- 此种方式是：</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">先把工厂的创建交给 spring 来管理。然后在使用工厂的 bean 来调用里面的方法</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">factory-bean 属性：用于指定实例工厂 bean 的 id。</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">factory-method 属性：用于指定实例工厂中创建对象的方法。</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">--&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&lt;bean id="instancFactory" class="com.linxianqin.factory.InstanceFactory"&gt;&lt;/bean&gt; &lt;bean id="accountService" factory-bean="instancFactory" factory-method="createAccountService"&gt;&lt;/bean&gt;</span></pre></td></tr></table></figure>
+
+<h2 id="spring-的依赖注入"><a href="#spring-的依赖注入" class="headerlink" title="spring 的依赖注入"></a>spring 的依赖注入</h2><h3 id="1-依赖注入的概念"><a href="#1-依赖注入的概念" class="headerlink" title="1. 依赖注入的概念"></a>1. 依赖注入的概念</h3><pre><code>依赖注入：Dependency Injection。它是 spring 框架核心 ioc 的具体实现。</code></pre><p>我们的程序在编写时，通过控制反转，把对象的创建交给了 spring，但是代码中不可能出现没有依赖的情况。<br>ioc 解耦只是降低他们的依赖关系，但不会消除。例如：我们的业务层仍会调用持久层的方法。<br>那这种业务层和持久层的依赖关系，在使用 spring 之后，就让 spring 来维护了。<br>简单的说，就是坐等框架把持久层对象传入业务层，而不用我们自己去获取。</p>
+<h3 id="2-构造函数注入"><a href="#2-构造函数注入" class="headerlink" title="2. 构造函数注入"></a>2. 构造函数注入</h3><p>顾名思义，就是使用类中的构造函数，给成员变量赋值。注意，赋值的操作不是我们自己做的，而是通过配置的方式，让 spring 框架来为我们注入。具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountServiceImpl</span> <span class="keyword">implements</span> <span class="title">IAccountService</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> String name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> Integer age;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> Date birthday;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">AccountServiceImpl</span><span class="params">(String name, Integer age,Date birthday)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">this</span>.name = name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">this</span>.age = age;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">this</span>.birthday = birthday; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveAccount</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">		System.out.println(name+<span class="string">","</span>+age+<span class="string">","</span>+birthday);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	&#125; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<h4 id="使用构造函数的方式，给-service-中的属性传值"><a href="#使用构造函数的方式，给-service-中的属性传值" class="headerlink" title="使用构造函数的方式，给 service 中的属性传值"></a>使用构造函数的方式，给 service 中的属性传值</h4><p>要求：类中需要提供一个对应参数列表的构造函数。<br>涉及的标签：constructor-arg<br>属性：</p>
+<pre><code>index:指定参数在构造函数参数列表的索引位置
+type:指定参数在构造函数中的数据类型
+name:指定参数在构造函数中的名称 用这个找给谁赋值</code></pre><hr>
+<p>上面三个都是找给谁赋值，下面两个指的是赋什么值的</p>
+<hr>
+<pre><code>value:它能赋的值是基本数据类型和 String 类型
+ref:它能赋的值是其他 bean 类型，也就是说，必须得是在配置文件中配置过的 bean </code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"accountService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.linxianqin.service.impl.AccountServiceImpl"</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	&lt;constructor-arg name="name" value="张三"&gt;&lt;/constructor-arg&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	&lt;constructor-arg name="age" value="18"&gt;&lt;/constructor-arg&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	&lt;constructor-arg name="birthday" ref="now"&gt;&lt;/constructor-arg&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&lt;/bean&gt; &lt;bean id="now" class="java.util.Date"&gt;&lt;/bean&gt;</span></pre></td></tr></table></figure>
+<h3 id="3-set-方法注入-用的比较多）"><a href="#3-set-方法注入-用的比较多）" class="headerlink" title="3.set 方法注入(用的比较多）"></a>3.set 方法注入(用的比较多）</h3><p>顾名思义，就是在类中提供需要注入成员的 set 方法。具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountServiceImpl</span> <span class="keyword">implements</span> <span class="title">IAccountService</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> String name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> Integer age;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> Date birthday;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.name = name; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.age = age; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBirthday</span><span class="params">(Date birthday)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">this</span>.birthday = birthday;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveAccount</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">	System.out.println(name+<span class="string">","</span>+age+<span class="string">","</span>+birthday);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">	&#125; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<h4 id="通过配置文件给-bean-中的属性传值：使用-set-方法的方式"><a href="#通过配置文件给-bean-中的属性传值：使用-set-方法的方式" class="headerlink" title="通过配置文件给 bean 中的属性传值：使用 set 方法的方式"></a>通过配置文件给 bean 中的属性传值：使用 set 方法的方式</h4><p>涉及的标签：<br>property<br>属性：<br>name：找的是类中 set 方法后面的部分<br>ref：给属性赋值是其他 bean 类型的<br>value：给属性赋值是基本数据类型和 string 类型的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"accountService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.linxianqin.service.impl.AccountServiceImpl"</span>&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	&lt;property name="name" value="test"&gt;&lt;/property&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	&lt;property name="age" value="21"&gt;&lt;/property&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	&lt;property name="birthday" ref="now"&gt;&lt;/property&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&lt;/bean&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&lt;bean id="now" class="java.util.Date"&gt;&lt;/bean&gt;</span></pre></td></tr></table></figure>
+<h3 id="4-使用-p-名称空间注入数据（本质还是调用-set-方法）"><a href="#4-使用-p-名称空间注入数据（本质还是调用-set-方法）" class="headerlink" title="4. 使用 p 名称空间注入数据（本质还是调用 set 方法）"></a>4. 使用 p 名称空间注入数据（本质还是调用 set 方法）</h3><p>此种方式是通过在 xml 中导入 p 名称空间，使用 p:propertyName 来注入数据，它的本质仍然是调用类中的<br>set 方法实现注入功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">* 使用 p 名称空间注入，本质还是调用类中的 set 方法</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">*/</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountServiceImpl4</span> <span class="keyword">implements</span> <span class="title">IAccountService</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> String name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> Integer age;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> Date birthday;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.name = name;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.age = age;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBirthday</span><span class="params">(Date birthday)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.birthday = birthday;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveAccount</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">		System.out.println(name+<span class="string">","</span>+age+<span class="string">","</span>+birthday);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">	&#125; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+<p>配置文件代码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"accountService"</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span></span>=<span class="string">"com.itheima.service.impl.AccountServiceImpl4"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">p:name=<span class="string">"test"</span> p:age=<span class="string">"21"</span> p:birthday-ref=<span class="string">"now"</span>/&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&lt;bean id="now" class="java.util.Date"&gt;&lt;/bean&gt;</span></pre></td></tr></table></figure>
+<h3 id="5-注入集合属性"><a href="#5-注入集合属性" class="headerlink" title="5. 注入集合属性"></a>5. 注入集合属性</h3><p>顾名思义，就是给类中的集合成员传值，它用的也是set方法注入的方式，只不过变量的数据类型都是集合。List,Set,Map,Properties。具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountServiceImpl</span> <span class="keyword">implements</span> <span class="title">IAccountService</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> String[] myStrs;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> List&lt;String&gt; myList;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> Set&lt;String&gt; mySet;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> Map&lt;String,String&gt; myMap;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> Properties myProps;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMyStrs</span><span class="params">(String[] myStrs)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.myStrs = myStrs; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMyList</span><span class="params">(List&lt;String&gt; myList)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.myList = myList;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMySet</span><span class="params">(Set&lt;String&gt; mySet)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.mySet = mySet;		</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMyMap</span><span class="params">(Map&lt;String, String&gt; myMap)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.myMap = myMap; 	</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMyProps</span><span class="params">(Properties myProps)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">this</span>.myProps = myProps; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveAccount</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">	System.out.println(Arrays.toString(myStrs));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">	System.out.println(myList);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">	System.out.println(mySet);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">	System.out.println(myMap);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">	System.out.println(myProps);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr></table></figure>
+<p>注入集合数据<br>List结构的：</p>
+<pre><code>array,list,set</code></pre><p>Map结构的：</p>
+<pre><code>map,entry,props,prop</code></pre><h5 id="在注入集合数据时，只要结构相同，标签可以互换"><a href="#在注入集合数据时，只要结构相同，标签可以互换" class="headerlink" title="在注入集合数据时，只要结构相同，标签可以互换"></a>在注入集合数据时，只要结构相同，标签可以互换</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"accountService"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.linxianqin.service.impl.AccountServiceImpl"</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&lt;propertyname=<span class="string">"myStrs"</span>&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	&lt;set&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">	&lt;value&gt;AAA&lt;/value&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	&lt;value&gt;BBB&lt;/value&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	&lt;value&gt;CCC&lt;/value&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	&lt;/set&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&lt;/property&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&lt;!-- 注入 list 集合数据 --&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&lt;property name=<span class="string">"myList"</span>&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	&lt;array&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	 &lt;value&gt;AAA&lt;/value&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">	 &lt;value&gt;BBB&lt;/value&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">	 &lt;value&gt;CCC&lt;/value&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">	&lt;/array&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&lt;/property&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&lt;!-- 注入 set 集合数据 --&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">&lt;property name=<span class="string">"mySet"</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"> &lt;list&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">	&lt;value&gt;AAA&lt;/value&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">	&lt;value&gt;BBB&lt;/value&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">	&lt;value&gt;CCC&lt;/value&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">	&lt;/list&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">&lt;/property&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">&lt;!-- 注入 Map 数据 --&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&lt;property name=<span class="string">"myMap"</span>&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">	&lt;props&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">		&lt;prop key="testA"&gt;aaa&lt;/prop&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">		&lt;prop key="testB"&gt;bbb&lt;/prop&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">	&lt;/props&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">&lt;/property&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">&lt;!-- 注入 properties 数据 --&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">&lt;property name=<span class="string">"myProps"</span>&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">	&lt;map&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">		&lt;entry key="testA" value="aaa"&gt;&lt;/entry&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">	 	&lt;entry key=<span class="string">"testB"</span>&gt; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">			&lt;value&gt;bbb&lt;/value&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">		&lt;/entry&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">	&lt;/map&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">&lt;/property&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">&lt;/bean&gt;</span></pre></td></tr></table></figure>	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">相关文章</div>
+				<div>评论</div>
+				<div>分享</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);" target="_blank" rel="noopener">返回顶部</a>
+		
+			<a href="/2019/07/16/spring%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E7%9A%84ioc%E7%BB%86%E8%8A%82/" title="spring基于注解的ioc细节" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2019/07/15/spring%E7%9A%84%E6%A6%82%E8%BF%B0/" title="spring的概述" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/10/07/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%97%E4%B8%B2/" title="无重复字符的最长字串">
+								无重复字符的最长字串			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 7日, 2019				
+							</p>
+							<p class="relate-post-content">
+								算法–无重复字符的最长字串给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+示例1：输入： &quot;abcabcbb&quot;
+输出：3 
+原因： 因为无重复字符的最长子串是 &quot;abc&quot;，所以...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/10/07/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%97%E4%B8%B2/" title="无重复字符的最长字串">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="无重复字符的最长字串"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/09/19/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" title="两数相加">
+								两数相加			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 19日, 2019				
+							</p>
+							<p class="relate-post-content">
+								算法–两数相加给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+您可以假设除了数...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/09/19/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" title="两数相加">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="两数相加"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/09/09/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" title="两数之和">
+								两数之和			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 9日, 2019				
+							</p>
+							<p class="relate-post-content">
+								算法–两数之和给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
+示例：给定 n...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/09/09/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" title="两数之和">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="两数之和"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/28/springMVC%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E7%BB%91%E5%AE%9A/" title="springMVC请求参数的绑定">
+								springMVC请求参数的绑定			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 28日, 2019				
+							</p>
+							<p class="relate-post-content">
+								1 绑定的机制我们都知道，表单中请求参数都是基于 key=value 的。SpringMVC 绑定请求参数的过程是通过把表单提交请求参数，作为控制器中方法参数进行绑定的。
+1&lt;a href="account/findAccoun...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/28/springMVC%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E7%BB%91%E5%AE%9A/" title="springMVC请求参数的绑定">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="springMVC请求参数的绑定"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/28/springMVC%E7%9A%84%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/" title="springMVC的常用注解">
+								springMVC的常用注解			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 28日, 2019				
+							</p>
+							<p class="relate-post-content">
+								RequestMapping注解1.RequestMapping使用说明源码：1@Target(&#123;ElementType.METHOD, ElementType.TYPE&#125;)2@Retention(Retentio...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/28/springMVC%E7%9A%84%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/" title="springMVC的常用注解">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="springMVC的常用注解"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/28/SpringMVC%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="SpringMVC的基本概念">
+								SpringMVC的基本概念			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 28日, 2019				
+							</p>
+							<p class="relate-post-content">
+								关于三层架构和 MVC三层架构我们的开发架构一般都是基于两种形式，一种是 C/S 架构，也就是客户端/服务器，另一种是 B/S 架构，也就是浏览器服务器。在JavaEE 开发中，几乎全都是基于 B/S 架构的开发。那么在 B/S 架构...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/28/SpringMVC%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="SpringMVC的基本概念">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SpringMVC的基本概念"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/" title="spring基于xml的aop细节">
+								spring基于xml的aop细节			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 20日, 2019				
+							</p>
+							<p class="relate-post-content">
+								AOP 的相关概念什么是AOPAOP的作用及优势作用：
+    在程序运行期间，不修改源码对已有方法进行增强。
+优势：
+    减少重复代码
+    提高开发效率
+    维护方便AOP 的实现方式使用动态代理技术Spring 中 A...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/" title="spring基于xml的aop细节">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="spring基于xml的aop细节"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/18/mybatis%E5%9F%BA%E4%BA%8Exml%E7%9A%84%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" title="mybatis基于xml的多表查询">
+								mybatis基于xml的多表查询			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								Mybatis 多表查询之一对一和一对多用户为 User 表，账户为Account表。一个用户（User）可以有多个账户（Account）。具体关系如下：
+需求
+    查询所有账户信息，关联查询下单用户信息。
+注意：
+    因为一...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/18/mybatis%E5%9F%BA%E4%BA%8Exml%E7%9A%84%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" title="mybatis基于xml的多表查询">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="mybatis基于xml的多表查询"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/18/mybatis%E7%9A%84SqlMapConfig%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="SqlMapConfig.xml配置文件">
+								SqlMapConfig.xml配置文件			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								SqlMapConfig.xml 中配置的内容和顺序-properties（属性）
+    --property
+-settings（全局配置参数）
+    --setting
+-typeAliases（类型别名）
+    --typ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/18/mybatis%E7%9A%84SqlMapConfig%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="SqlMapConfig.xml配置文件">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SqlMapConfig.xml配置文件"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/17/mybatis%E5%9F%BA%E4%BA%8E%E4%BB%A3%E7%90%86Dao%E5%AE%9E%E7%8E%B0CRUD%E6%93%8D%E4%BD%9C/" title="mybatis基于代理Dao实现CRUD操作">
+								mybatis基于代理Dao实现CRUD操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 17日, 2019				
+							</p>
+							<p class="relate-post-content">
+								使用要求：    1、持久层接口和持久层接口的映射配置必须在相同的包下    2、持久层映射配置中 mapper 标签的 namespace 属性取值必须是持久层接口的全限定类名    3、SQL 语句的配置标签select,inse...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/17/mybatis%E5%9F%BA%E4%BA%8E%E4%BB%A3%E7%90%86Dao%E5%AE%9E%E7%8E%B0CRUD%E6%93%8D%E4%BD%9C/" title="mybatis基于代理Dao实现CRUD操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="mybatis基于代理Dao实现CRUD操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+
+	<script>
+		var appid = 'dXz--',
+            appkey = 'wzG--';	  
+        AnnieLeancloud(appid, appkey);         
+	</script>
+    
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2019, content by 林贤钦. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran(' target="_blank" rel="noopener"s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran(' target="_blank" rel="noopener"t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="想搜索啥呢？..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var appid = 'dXz--',
+            appkey = 'wzG--',
+            limitCount = 10;
+        if( $('#topN').length ){
+            AV.initialize(appid, appkey);
+            var Counter = AV.Object.extend("Counter");  
+            topNPost(Counter, limitCount);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/plugin/search/search.js"></script>
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;" target="_blank" rel="noopener"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>

@@ -1,0 +1,1155 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      spring基于xml的aop细节 | 林贤钦的博客
+    
+  </title>
+  <meta name="author" content="林贤钦">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="normal" data-normal-src="/img/1.jpg" data-random-max="110" data-random-src="https://sariay.github.io/Random-img/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/logo.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" target="_blank" rel="noopener" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" target="_blank" id="time_is_link" rel="nofollow noopener" ></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			当前文章&nbsp;:&nbsp;《spring基于xml的aop细节》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" target="_blank" rel="noopener" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-主页">
+			<a href="/" class="menu-item-主页">主页</a>
+		</li>
+	
+		<li class="menu-归档">
+			<a href="/archives" class="menu-item-归档">归档</a>
+		</li>
+	
+		<li class="menu-分类">
+			<a href="/categories" class="menu-item-分类">分类</a>
+		</li>
+	
+		<li class="menu-标签">
+			<a href="/tags" class="menu-item-标签">标签</a>
+		</li>
+	
+		<li class="menu-关于">
+			<a href="/about" class="menu-item-关于">关于</a>
+		</li>
+	
+		<li class="menu-相册">
+			<a href="/gallery" class="menu-item-相册">相册</a>
+		</li>
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/" itemprop="url">
+		spring基于xml的aop细节
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	发布于
+
+	<a href="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/" itemprop="url">
+		<time datetime="2019-07-19T18:46:00.000Z" itemprop="datePublished">
+	  		2019-07-20
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	更新于
+
+	<a href="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/" itemprop="url">
+		<time datetime="2019-07-19T18:46:00.000Z" itemprop="dateUpdated">
+	  		2019-07-20
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/spring/" class=" ">
+			spring
+		</a>
+	
+		<a href="/tags/java/" class=" ">
+			java
+		</a>
+	
+		<a href="/tags/back-end/" class=" ">
+			back-end
+		</a>
+	
+		
+		</span>
+		
+		
+
+	
+    <span class="leancloud_visitors" id="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/_visitors" data-url="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/" data-title="spring基于xml的aop细节">
+       	<i class="fa fa-eye"></i>
+       	热度
+        <i class="leancloud_visitors_count" id="leancloud_visitors_count">0</i>
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/_likes" data-url="/2019/07/20/spring%E5%9F%BA%E4%BA%8Exml%E7%9A%84aop%E7%BB%86%E8%8A%82/" data-title="spring基于xml的aop细节" rel="unlike">
+        <i class="fa fa-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<h2 id="AOP-的相关概念"><a href="#AOP-的相关概念" class="headerlink" title="AOP 的相关概念"></a>AOP 的相关概念</h2><h5 id="什么是AOP"><a href="#什么是AOP" class="headerlink" title="什么是AOP"></a>什么是AOP</h5><h5 id="AOP的作用及优势"><a href="#AOP的作用及优势" class="headerlink" title="AOP的作用及优势"></a>AOP的作用及优势</h5><pre><code>作用：
+    在程序运行期间，不修改源码对已有方法进行增强。
+优势：
+    减少重复代码
+    提高开发效率
+    维护方便</code></pre><h5 id="AOP-的实现方式"><a href="#AOP-的实现方式" class="headerlink" title="AOP 的实现方式"></a>AOP 的实现方式</h5><pre><code>使用动态代理技术</code></pre><h2 id="Spring-中-AOP-的细节"><a href="#Spring-中-AOP-的细节" class="headerlink" title="Spring 中 AOP 的细节"></a>Spring 中 AOP 的细节</h2><h3 id="AOP-相关术语"><a href="#AOP-相关术语" class="headerlink" title="AOP 相关术语"></a>AOP 相关术语</h3><pre><code>Joinpoint(连接点):
+    所谓连接点是指那些被拦截到的点。在 spring 中,这些点指的是方法,因为 spring 只支持方法类型的连接点。
+Pointcut(切入点):
+    所谓切入点是指我们要对哪些 Joinpoint 进行拦截的定义。
+Advice(通知/增强):
+    所谓通知是指拦截到 Joinpoint 之后所要做的事情就是通知。通知的类型：前置通知,后置通知,异常通知,最终通知,环绕通知。
+Introduction(引介):
+    引介是一种特殊的通知在不修改类代码的前提下, Introduction 可以在运行期为类动态地添加一些方法或 Field。
+Target(目标对象):
+    代理的目标对象。
+Weaving(织入):
+    是指把增强应用到目标对象来创建新的代理对象的过程。
+    spring 采用动态代理织入，而 AspectJ 采用编译期织入和类装载    期织入。
+Proxy（代理）:
+    一个类被 AOP 织入增强后，就产生一个结果代理类。
+Aspect(切面):
+    是切入点和通知（引介）的结合。</code></pre><h3 id="基于-XML-的-AOP-配置"><a href="#基于-XML-的-AOP-配置" class="headerlink" title="基于 XML 的 AOP 配置"></a>基于 XML 的 AOP 配置</h3><h5 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h5><p>第一步：把通知类用 bean 标签配置起来</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置通知 --&gt;</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"txManager"</span> <span class="attr">class</span>=<span class="string">"com.linxianqin.utils.TransactionManager"</span>&gt;</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dbAssit"</span> <span class="attr">ref</span>=<span class="string">"dbAssit"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>第二步：使用 aop:config 声明 aop 配置</p>
+<h5 id="aop-config"><a href="#aop-config" class="headerlink" title="aop:config:"></a>aop:config:</h5><pre><code>作用：用于声明开始 aop 的配置</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">&lt;!-- 配置的代码都写在此处 --&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>第三步：使用 aop:aspect 配置切面</p>
+<h5 id="aop-aspect"><a href="#aop-aspect" class="headerlink" title="aop:aspect:"></a>aop:aspect:</h5><pre><code>作用：
+    用于配置切面。
+属性：
+    id：给切面提供一个唯一标识。
+    ref：引用配置好的通知类 bean 的 id。</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">ref</span>=<span class="string">"txManager"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置通知的类型要写在此处--&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span></pre></td></tr></table></figure>
+<p>第四步：使用 aop:pointcut 配置切入点表达式</p>
+<h5 id="aop-pointcut："><a href="#aop-pointcut：" class="headerlink" title="aop:pointcut："></a>aop:pointcut：</h5><pre><code>作用：
+    用于配置切入点表达式。就是指定对哪些类的哪些方法进行增强。
+属性：
+    expression：用于定义切入点表达式。
+    id：用于给切入点表达式提供一个唯一标识</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">"execution(public void com.linxianqin.service.impl.AccountServiceImpl.transfer(</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="tag"><span class="string">java.lang.String, java.lang.String, java.lang.Float) )"</span> <span class="attr">id</span>=<span class="string">"pt1"</span>/&gt;</span></span></pre></td></tr></table></figure>
+<p>第五步：使用 aop:xxx 配置对应的通知类型    </p>
+<h5 id="aop-before"><a href="#aop-before" class="headerlink" title="aop:before"></a>aop:before</h5><pre><code>作用：
+    用于配置前置通知。指定增强的方法在切入点方法之前执行
+属性：
+    method:用于指定通知类中的增强方法名称
+    ponitcut-ref：用于指定切入点的表达式的引用
+    poinitcut：用于指定切入点表达式
+执行时间点：
+    切入点方法执行之前执行</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">"beginTransaction"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pt1"</span>/&gt;</span></span></pre></td></tr></table></figure>
+<h5 id="aop-after-returning"><a href="#aop-after-returning" class="headerlink" title="aop:after-returning"></a>aop:after-returning</h5><pre><code>作用：
+    用于配置后置通知
+属性：
+    method：指定通知中方法的名称。
+    pointct：定义切入点表达式
+    pointcut-ref：指定切入点表达式的引用
+执行时间点：
+    切入点方法正常执行之后。它和异常通知只能有一个执行</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">"commit"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pt1"</span>/&gt;</span></span></pre></td></tr></table></figure>
+<h5 id="aop-after-throwing"><a href="#aop-after-throwing" class="headerlink" title="aop:after-throwing"></a>aop:after-throwing</h5><pre><code>作用：
+    用于配置异常通知
+属性：
+    method：指定通知中方法的名称。
+    pointct：定义切入点表达式
+    pointcut-ref：指定切入点表达式的引用
+执行时间点：
+    切入点方法执行产生异常后执行。它和后置通知只能执行一个</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:after-throwing</span> <span class="attr">method</span>=<span class="string">"rollback"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pt1"</span>/&gt;</span></span></pre></td></tr></table></figure>
+<h5 id="aop-after"><a href="#aop-after" class="headerlink" title="aop:after"></a>aop:after</h5><pre><code>作用：
+    用于配置最终通知
+属性：
+    method：指定通知中方法的名称。
+    pointct：定义切入点表达式
+    pointcut-ref：指定切入点表达式的引用
+执行时间点：
+    无论切入点方法执行时是否有异常，它都会在其后面执行</code></pre><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">method</span>=<span class="string">"release"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pt1"</span>/&gt;</span></span></pre></td></tr></table></figure>
+
+<h4 id="切入点表达式说明"><a href="#切入点表达式说明" class="headerlink" title="切入点表达式说明"></a>切入点表达式说明</h4><p>execution:匹配方法的执行(常用)</p>
+<pre><code>execution(表达式)
+表达式语法：execution([修饰符] 返回值类型 包名.类名.方法名(参数))</code></pre><p>写法说明：(com.linxianqin.domain.Account)<br>全匹配方式：</p>
+<pre><code>public void com.linxianqin.service.impl.AccountServiceImpl.saveAccount</code></pre><p>访问修饰符可以省略</p>
+<pre><code>void com.linxianqin.service.impl.AccountServiceImpl.saveAccount</code></pre><p>返回值可以使用*号，表示任意返回值</p>
+<pre><code>* com.linxianqin.service.impl.AccountServiceImpl.saveAccount</code></pre><p>包名可以使用<em>号，表示任意包，但是有几级包，需要写几个</em></p>
+<pre><code>* *.*.*.*.AccountServiceImpl.saveAccount</code></pre><p>使用..来表示当前包，及其子包</p>
+<pre><code>* com..AccountServiceImpl.saveAccount</code></pre><p>类名可以使用*号，表示任意类</p>
+<pre><code>* com..*.saveAccount</code></pre><p>方法名可以使用*号，表示任意方法</p>
+<pre><code>* com..*.*</code></pre><p>参数列表可以使用*，表示参数可以是任意数据类型，但是必须有参数</p>
+<pre><code>* com..*.*(*)</code></pre><p>参数列表可以使用..表示有无参数均可，有参数可以是任意类型</p>
+<pre><code>* com..*.*(..)</code></pre><p>全通配方式：</p>
+<pre><code>* *..*.*(..)</code></pre><h3 id="lt-注-gt-："><a href="#lt-注-gt-：" class="headerlink" title="&lt;注&gt;："></a>&lt;注&gt;：</h3><p>通常情况下，我们都是对业务层的方法进行增强，所以切入点表达式都是切到业务层实现类。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">execution(* com.linxianqin.service.impl.*.*(..))</span></pre></td></tr></table></figure>
+
+<h4 id="环绕通知"><a href="#环绕通知" class="headerlink" title="环绕通知"></a>环绕通知</h4><p>#####aop:around：</p>
+<pre><code>作用：
+    用于配置环绕通知
+属性：
+    method：指定通知中方法的名称。
+    pointct：定义切入点表达式
+    pointcut-ref：指定切入点表达式的引用
+说明：
+    它是 spring 框架为我们提供的一种可以在代码中手动控制增强代码什么时候执行的方式。
+注意：
+    通常情况下，环绕通知都是独立使用的</code></pre><p>配置方式: </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">"execution(* com.linxianqin.service.impl.*.*(..))"</span> <span class="attr">id</span>=<span class="string">"pt1"</span>/&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">ref</span>=<span class="string">"txManager"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">		<span class="comment">&lt;!-- 配置环绕通知 --&gt;</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">		<span class="tag">&lt;<span class="name">aop:around</span> <span class="attr">method</span>=<span class="string">"transactionAround"</span> <span class="attr">pointcut-ref</span>=<span class="string">"pt1"</span>/&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="comment">* 环绕通知</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="comment">* <span class="doctag">@param</span> pjp</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="comment">* spring 框架为我们提供了一个接口：ProceedingJoinPoint，它可以作为环绕通知的方法参数。</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">* 在环绕通知执行时，spring 框架会为我们提供该接口的实现类对象，我们直接使用就行。</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="comment">* <span class="doctag">@return</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"><span class="comment">*/</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">transactionAround</span><span class="params">(ProceedingJoinPoint pjp)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">	<span class="comment">//定义返回值</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	Object rtValue = <span class="keyword">null</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">try</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">		<span class="comment">//获取方法执行所需的参数</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">		Object[] args = pjp.getArgs();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">		<span class="comment">//前置通知：开启事务</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">		beginTransaction();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">		<span class="comment">//执行方法</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">		rtValue = pjp.proceed(args);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">		<span class="comment">//后置通知：提交事务</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">		commit();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">	&#125;<span class="keyword">catch</span>(Throwable e) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">		<span class="comment">//异常通知：回滚事务</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">		rollback();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">		e.printStackTrace();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">	&#125;<span class="keyword">finally</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">		<span class="comment">//最终通知：释放资源</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">		release();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">return</span> rtValue; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">相关文章</div>
+				<div>评论</div>
+				<div>分享</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);" target="_blank" rel="noopener">返回顶部</a>
+		
+			<a href="/2019/07/28/SpringMVC%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="SpringMVC的基本概念" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2019/07/18/mybatis%E5%9F%BA%E4%BA%8Exml%E7%9A%84%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" title="mybatis基于xml的多表查询" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/10/07/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%97%E4%B8%B2/" title="无重复字符的最长字串">
+								无重复字符的最长字串			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 7日, 2019				
+							</p>
+							<p class="relate-post-content">
+								算法–无重复字符的最长字串给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+示例1：输入： &quot;abcabcbb&quot;
+输出：3 
+原因： 因为无重复字符的最长子串是 &quot;abc&quot;，所以...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/10/07/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%97%E4%B8%B2/" title="无重复字符的最长字串">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="无重复字符的最长字串"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/09/19/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" title="两数相加">
+								两数相加			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 19日, 2019				
+							</p>
+							<p class="relate-post-content">
+								算法–两数相加给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+您可以假设除了数...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/09/19/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" title="两数相加">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="两数相加"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/09/09/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" title="两数之和">
+								两数之和			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 9日, 2019				
+							</p>
+							<p class="relate-post-content">
+								算法–两数之和给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
+示例：给定 n...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/09/09/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" title="两数之和">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="两数之和"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/28/springMVC%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E7%BB%91%E5%AE%9A/" title="springMVC请求参数的绑定">
+								springMVC请求参数的绑定			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 28日, 2019				
+							</p>
+							<p class="relate-post-content">
+								1 绑定的机制我们都知道，表单中请求参数都是基于 key=value 的。SpringMVC 绑定请求参数的过程是通过把表单提交请求参数，作为控制器中方法参数进行绑定的。
+1&lt;a href="account/findAccoun...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/28/springMVC%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E7%BB%91%E5%AE%9A/" title="springMVC请求参数的绑定">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="springMVC请求参数的绑定"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/28/springMVC%E7%9A%84%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/" title="springMVC的常用注解">
+								springMVC的常用注解			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 28日, 2019				
+							</p>
+							<p class="relate-post-content">
+								RequestMapping注解1.RequestMapping使用说明源码：1@Target(&#123;ElementType.METHOD, ElementType.TYPE&#125;)2@Retention(Retentio...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/28/springMVC%E7%9A%84%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/" title="springMVC的常用注解">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="springMVC的常用注解"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/28/SpringMVC%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="SpringMVC的基本概念">
+								SpringMVC的基本概念			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 28日, 2019				
+							</p>
+							<p class="relate-post-content">
+								关于三层架构和 MVC三层架构我们的开发架构一般都是基于两种形式，一种是 C/S 架构，也就是客户端/服务器，另一种是 B/S 架构，也就是浏览器服务器。在JavaEE 开发中，几乎全都是基于 B/S 架构的开发。那么在 B/S 架构...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/28/SpringMVC%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="SpringMVC的基本概念">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SpringMVC的基本概念"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/18/mybatis%E5%9F%BA%E4%BA%8Exml%E7%9A%84%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" title="mybatis基于xml的多表查询">
+								mybatis基于xml的多表查询			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								Mybatis 多表查询之一对一和一对多用户为 User 表，账户为Account表。一个用户（User）可以有多个账户（Account）。具体关系如下：
+需求
+    查询所有账户信息，关联查询下单用户信息。
+注意：
+    因为一...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/18/mybatis%E5%9F%BA%E4%BA%8Exml%E7%9A%84%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" title="mybatis基于xml的多表查询">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="mybatis基于xml的多表查询"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/18/mybatis%E7%9A%84SqlMapConfig%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="SqlMapConfig.xml配置文件">
+								SqlMapConfig.xml配置文件			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 18日, 2019				
+							</p>
+							<p class="relate-post-content">
+								SqlMapConfig.xml 中配置的内容和顺序-properties（属性）
+    --property
+-settings（全局配置参数）
+    --setting
+-typeAliases（类型别名）
+    --typ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/18/mybatis%E7%9A%84SqlMapConfig%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="SqlMapConfig.xml配置文件">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="SqlMapConfig.xml配置文件"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/17/mybatis%E5%9F%BA%E4%BA%8E%E4%BB%A3%E7%90%86Dao%E5%AE%9E%E7%8E%B0CRUD%E6%93%8D%E4%BD%9C/" title="mybatis基于代理Dao实现CRUD操作">
+								mybatis基于代理Dao实现CRUD操作			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 17日, 2019				
+							</p>
+							<p class="relate-post-content">
+								使用要求：    1、持久层接口和持久层接口的映射配置必须在相同的包下    2、持久层映射配置中 mapper 标签的 namespace 属性取值必须是持久层接口的全限定类名    3、SQL 语句的配置标签select,inse...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/17/mybatis%E5%9F%BA%E4%BA%8E%E4%BB%A3%E7%90%86Dao%E5%AE%9E%E7%8E%B0CRUD%E6%93%8D%E4%BD%9C/" title="mybatis基于代理Dao实现CRUD操作">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="mybatis基于代理Dao实现CRUD操作"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/07/16/Spring%E6%95%B4%E5%90%88Junit/" title="Spring整合Junit">
+								Spring整合Junit			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 16日, 2019				
+							</p>
+							<p class="relate-post-content">
+								Spring整合Junit测试类中的问题和解决思路1.问题在测试类中，每个测试方法都有以下两行代码：
+1ApplicationContext ac = new ClassPathXmlApplicationContext("bean....
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/07/16/Spring%E6%95%B4%E5%90%88Junit/" title="Spring整合Junit">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="Spring整合Junit"/>
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+
+	<script>
+		var appid = 'dXz--',
+            appkey = 'wzG--';	  
+        AnnieLeancloud(appid, appkey);         
+	</script>
+    
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2019, content by 林贤钦. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran(' target="_blank" rel="noopener"s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran(' target="_blank" rel="noopener"t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="想搜索啥呢？..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var appid = 'dXz--',
+            appkey = 'wzG--',
+            limitCount = 10;
+        if( $('#topN').length ){
+            AV.initialize(appid, appkey);
+            var Counter = AV.Object.extend("Counter");  
+            topNPost(Counter, limitCount);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/plugin/search/search.js"></script>
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;" target="_blank" rel="noopener"  name="TOTOP" class="fa fa-arrow-up" ></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>
